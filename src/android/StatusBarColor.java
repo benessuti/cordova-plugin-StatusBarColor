@@ -21,7 +21,7 @@ public class StatusBarColor extends CordovaPlugin {
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int color = Col     or.parseColor(preferences.getString("StatusBarBackgroundColor", "#000000"));
+            int color = Color.parseColor(preferences.getString("StatusBarBackgroundColor", "#000000"));
             Bitmap bm = BitmapFactory.decodeFile(preferences.getString("StatusBarBackgroundIcon", "#000000"));
 
             ActivityManager activityManager = (ActivityManager) cordova.getActivity().getSystemService(Context.ACTIVITY_SERVICE);
