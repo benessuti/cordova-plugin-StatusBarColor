@@ -2,6 +2,7 @@ package com.internrocket.plugins.statusbarcolor;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.content.res.Resources;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -22,13 +23,13 @@ public class StatusBarColor extends CordovaPlugin {
         super.initialize(cordova, webView);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             int color = Color.parseColor(preferences.getString("StatusBarBackgroundColor", "#000000"));
-            Bitmap bm = BitmapFactory.decodeFile(preferences.getString("StatusBarBackgroundIcon", "#000000"));
+             Bitmap iconBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.othericon);
 
             ActivityManager activityManager = (ActivityManager) cordova.getActivity().getSystemService(Context.ACTIVITY_SERVICE);
             for(ActivityManager.AppTask appTask : activityManager.getAppTasks()) {
                 if(appTask.getTaskInfo().id == cordova.getActivity().getTaskId()) {
                     ActivityManager.TaskDescription description = appTask.getTaskInfo().taskDescription;
-                    cordova.getActivity().setTaskDescription(new ActivityManager.TaskDescription(description.getLabel(), bm, color));
+                    cordova.getActivity().setTaskDescription(new ActivityManager.TaskDescription(description.getLabel(), iconBitmap, color));
                 }
             }
             Window window = cordova.getActivity().getWindow();
